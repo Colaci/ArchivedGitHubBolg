@@ -123,10 +123,10 @@
 <meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片36.png">
 <meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片37.png">
 <meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片38.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片40.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片39.png">
 <meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/Raytracing.PNG">
 <meta property="article:published_time" content="2021-03-02T04:55:57.000Z">
-<meta property="article:modified_time" content="2021-03-02T06:26:37.619Z">
+<meta property="article:modified_time" content="2021-03-02T06:36:55.439Z">
 <meta property="article:author" content="Delafin">
 <meta property="article:tag" content="图形学">
 <meta property="article:tag" content="Ray_Tracing">
@@ -431,9 +431,11 @@
 </blockquote>
 <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片7.png" width="70%">
 具体实现过程
-1. 将所有物体放在一个列表中，判断光线和列表中的所有物体有没有交点
-2. 如果有交点，则取最近的一个为最终结果并映射作为最终颜色值（至于为什么下面这个大球是绿的，因为它的y绝对值非常的大）
-3. sphere和hittable_list中都实现hittable中的hit纯虚函数，前者负责判断光线和单个球体的交点，后者负责找出最近的交点，后者调用前者
+<ul>
+<li>将所有物体放在一个列表中，判断光线和列表中的所有物体有没有交点</li>
+<li>如果有交点，则取最近的一个为最终结果并映射作为最终颜色值（至于为什么下面这个大球是绿的，因为它的y绝对值非常的大）</li>
+<li>sphere和hittable_list中都实现hittable中的hit纯虚函数，前者负责判断光线和单个球体的交点，后者负责找出最近的交点，后者调用前者</li>
+</ul>
 <h2 id="Ch-6">Ch-6</h2>
 <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片8.png" width="70%">
 抗锯齿：一个像素中有多个采样点（发射多条光线），然后平均得到的颜色
@@ -455,10 +457,12 @@
 <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片15.png" width="70%">
 具体步骤见注释
 校正：
-- 将tmin设置为0.001而不是0，因为实际情况下是不会达到0的
-- 伽马校正：在本例中将得到的颜色值开平方，会使颜色变亮（在0到1之间）
+<ul>
+<li>将tmin设置为0.001而不是0，因为实际情况下是不会达到0的</li>
+<li>伽马校正：在本例中将得到的颜色值开平方，会使颜色变亮（在0到1之间）
 最终得到的结果如图
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片16.png" width="70%">
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片16.png" width="70%"></li>
+</ul>
 <h2 id="Ch-8">Ch-8</h2>
 <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片17.png" width="70%">
 赋予不同的物体不同的材质，这就需要一个抽象的材质类material，并在球体中添加mat_ptr指针
@@ -492,8 +496,8 @@ reflection=v+2B
 一个问题：我看书觉得他的图比我更清晰，因为上图锯齿仍然十分严重，但是增加采样数并没有明显改善，所以可能是像素密度太低的问题（上图是放大后的图，实际很小，书上的像是把小图截图之后再放大，之间有一定处理？）
 <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片30.png">
 书上关于玻璃材质的代码，并没有贴公式，需要自己查阅<strong>Christophe Schlick</strong>
-注意这里玻璃的实现用了两个球，其中一个半径为负，虽然在几何上并没有差别，但是会让表面法线向里
-<font color=Red>bug记录</font>
+注意这里玻璃的实现用了两个球，其中一个半径为负，虽然在几何上并没有差别，但是会让表面法线向里</p>
+<p><font color=Red>bug记录</font>
 有一行的颜色值为这个，无法打开文件
 <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片31.png" width="50%">
 随便修改成正常值后可以打开且其他部分颜色正常
@@ -510,7 +514,7 @@ w=lookfrom-lookat最先确定，再通过和vup叉乘确定u，再确定v
 <p>景深效果
 <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片38.png" width="60%">
 假设光从一个圆盘发出而非一个点
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片40.png" width="70%">
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/raytracing/未命名图片39.png" width="70%">
 图中的两个黑点为NaN的bug
 实现方法同随机反射光的方法类似，在一个圆盘中用随机数生成一点
 最终的综合效果
@@ -651,7 +655,7 @@ w=lookfrom-lookat最先确定，再通过和vup叉乘确定u，再确定v
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -662,7 +666,7 @@ w=lookfrom-lookat最先确定，再通过和vup叉乘确定u，再确定v
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
