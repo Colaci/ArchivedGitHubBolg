@@ -178,7 +178,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/%20" rel="section">
+          <a href="/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -187,8 +187,28 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
-          <a href="/archives/%20" rel="section">
+          <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -229,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/01/test-my-site/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/01/lecture4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -248,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/01/test-my-site/" itemprop="url">test_my_site</a></h1>
+                <a class="post-title-link" href="/2021/03/01/lecture4/" itemprop="url">Lecture4-变换矩阵</a></h1>
         
 
         <div class="post-meta">
@@ -270,6 +290,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">图形学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -300,7 +342,52 @@
       
         
           
-            
+            <span id="more"></span>
+<h2 id="变换矩阵">变换矩阵</h2>
+<figure class="half" float="right">
+    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%87.png?OSSAccessKeyId=LTAI4FeUq6bno4ZoxxGRT9d8&Expires=1614648252&Signature=npFErAsUhCnNJGEjjdVUQZLKd9A%3D" width="230">
+    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%871.png?OSSAccessKeyId=LTAI4FeUq6bno4ZoxxGRT9d8&Expires=1614648303&Signature=pGhP%2FBgmuGrjRPkHwymcWjhqGUg%3D" width="230">
+</figure>
+而对于任意绕轴的旋转，当成是旋转的组合（罗德里格斯旋转公式）
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%872.png?OSSAccessKeyId=LTAI4FeUq6bno4ZoxxGRT9d8&Expires=1614649874&Signature=y8Omf8dYWf8LYYLQsnZtn0WpCIA%3D">
+后面的N为叉乘的矩阵形式
+如果是不过原点的某个轴，则先将轴移动到原点做旋转再移动回原来的位置
+<h2 id="视图变换-View-Camera-transformation">视图变换 View/Camera transformation</h2>
+<p>因为移动模型和移动相机可能得到一模一样的结果，所以假定相机位置固定，只移动物体位置（model transformation）</p>
+<ul>
+<li>摆放模型的位置（model transformation）</li>
+<li>找一个角度“拍照”(view transformation)
+<ul>
+<li>对于相机的定义：Position, Look-at, Up direction（相机位置，往哪里看，向上方向（要两个方向才能定义一个坐标系））</li>
+<li>相机永远在原点，看向-Z，向上为+Y<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%873.png?OSSAccessKeyId=LTAI4FeUq6bno4ZoxxGRT9d8&amp;Expires=1614648663&amp;Signature=0oLye%2BP5LxTD7XjPOr0DAMQp9fk%3D" alt=""></li>
+<li>注意这里是平移矩阵在右边，表示先算</li>
+</ul>
+</li>
+<li>要对其他物体做同样的变换，是为了保证相机和物体相对位置不变</li>
+</ul>
+<h2 id="投影变换-Projection-transformation">投影变换 Projection transformation</h2>
+<p>透视投影固定物体位置，相机位置无限远，最后得到的结果就近似于正交投影</p>
+<ul>
+<li>Orthographic projection
+<ul>
+<li>移动到立方体中，再映射到标准立方体中（先把立方体中心移动到原点，再把立方体xyz轴拉成标准（缩放））</li>
+<li>在z轴上定义[f, n]，其中f的z值更小，n更大（看向-Z方向）</li>
+<li><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%874.png?OSSAccessKeyId=LTAI4FeUq6bno4ZoxxGRT9d8&amp;Expires=1614648917&amp;Signature=ZoOMtDPSz8wLqN1DRfeWq7aMcwE%3D" alt=""></li>
+<li>做完了投影变换后，物体会被拉伸</li>
+</ul>
+</li>
+<li>Perspective projection
+<ul>
+<li>（x,y,z,1）和（kx,ky,kz,k!=0）以及（xz,yz,z^2,z!=0）都表示同一个点</li>
+<li>一种思路，把空间中的视锥体挤成和近平面相同的长方体，再进行正交投影，规定近平面永远不变（也只有近平面上的点不会改变），远平面上的点的z值也不会发生改变，通过相似三角形确定“挤压”后的x,y位置<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%875.png?OSSAccessKeyId=LTAI4FeUq6bno4ZoxxGRT9d8&Expires=1614649067&Signature=F%2Fqi7qsYbNK2fNcGmF8qYz2zpBw%3D" width="70%">
+中间一行为（0，0，n+f，-nf）</li>
+</ul>
+</li>
+<li>最后的结果为：M<sub>persp</sub>=M<sub>ortho</sub>M<sub>persp-&gt;ortho</sub></li>
+</ul>
+<h2 id="assignment1结果">assignment1结果</h2>
+<p><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%876.png?OSSAccessKeyId=LTAI4FeUq6bno4ZoxxGRT9d8&amp;Expires=1614649226&amp;Signature=vR63MfqYKk44dhlwJLi2m9kjSK0%3D" alt=""></p>
+
           
         
       
@@ -390,6 +477,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -418,22 +527,14 @@
 
       
         
-          
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-          
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/03/01/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -511,7 +612,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/%20%7C%7C%20archive">
+                <a href="/archives%7C%7C%20archive">
               
                   <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
@@ -520,7 +621,25 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -619,6 +738,8 @@
   
 
 
+  
+
 
 
 
@@ -657,6 +778,11 @@
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
