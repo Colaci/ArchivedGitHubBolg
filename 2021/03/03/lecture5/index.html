@@ -79,27 +79,31 @@
 
 
 
-<meta name="description" content="纺射变换和投影变换">
+<meta name="description" content="光栅化中会判断像素点和三角形的位置关系，可以通过叉积来判断">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture4-变换矩阵">
-<meta property="og:url" content="http://example.com/2021/03/01/lecture4/index.html">
+<meta property="og:title" content="Lecture5-光栅化 &amp; Lecture6-反走样">
+<meta property="og:url" content="http://example.com/2021/03/03/lecture5/index.html">
 <meta property="og:site_name" content="Delafin&#39;s">
-<meta property="og:description" content="纺射变换和投影变换">
+<meta property="og:description" content="光栅化中会判断像素点和三角形的位置关系，可以通过叉积来判断">
 <meta property="og:locale">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片1.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片2.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%873.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%874.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片5.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%876.png">
-<meta property="article:published_time" content="2021-03-01T01:29:16.000Z">
-<meta property="article:modified_time" content="2021-03-02T04:50:42.527Z">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片1.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片2.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片3.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片1.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片2.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片3.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片4.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片5.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片6.png">
+<meta property="article:published_time" content="2021-03-03T02:24:25.000Z">
+<meta property="article:modified_time" content="2021-03-03T02:59:45.494Z">
 <meta property="article:author" content="Delafin">
 <meta property="article:tag" content="图形学">
 <meta property="article:tag" content="GAMES101">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png">
+<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片.png">
 
 
 
@@ -129,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/03/01/lecture4/"/>
+  <link rel="canonical" href="http://example.com/2021/03/03/lecture5/"/>
 
 
 
 
 
-  <title>Lecture4-变换矩阵 | Delafin's</title>
+  <title>Lecture5-光栅化 & Lecture6-反走样 | Delafin's</title>
   
 
 
@@ -262,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/01/lecture4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/03/lecture5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -279,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lecture4-变换矩阵</h1>
+          <h1 class="post-title" itemprop="name headline">Lecture5-光栅化 & Lecture6-反走样</h1>
         
 
         <div class="post-meta">
@@ -291,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-01T09:29:16+08:00">
-                2021-03-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-03T10:24:25+08:00">
+                2021-03-03
               </time>
             
 
@@ -351,52 +355,60 @@
       
 
       
-        <p>纺射变换和投影变换</p>
+        <p>光栅化中会判断像素点和三角形的位置关系，可以通过叉积来判断</p>
 <span id="more"></span>
-<h2 id="变换矩阵">变换矩阵</h2>
-<figure class="half" float="right">
-    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png" width="230">
-    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片1.png" width="230">
-</figure>
-而对于任意绕轴的旋转，当成是旋转的组合（罗德里格斯旋转公式）
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片2.png">
-后面的N为叉乘的矩阵形式
-如果是不过原点的某个轴，则先将轴移动到原点做旋转再移动回原来的位置
-<h2 id="视图变换-View-Camera-transformation">视图变换 View/Camera transformation</h2>
-<p>因为移动模型和移动相机可能得到一模一样的结果，所以假定相机位置固定，只移动物体位置（model transformation）</p>
+<h2 id="Lecture-5">Lecture-5</h2>
+<p>定义屏幕空间的左下角为原点，向右为x，向上为y，且定义像素下标都为整数
+范围为(0,0)到(width-1,height-1)
+将原本的[-1,1]*[-1,1]的标准立方面拉到[0,width]*[0,height]这个平面上
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片.png" width="70%"></p>
+<p>判断一个像素的中心点和三角形的位置关系，通过采样的方式（将一个函数离散化的过程）
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片1.png" width="70%">
+以上图为例，P1P2×P1Q大于0，P0P1×P0Q大于0，而P2P0×P2Q小于0，所以在三角形外面（全正或者全负才会在三角形中）
+边界上的点要么不做处理，要么特殊处理
+没必要找所有的像素点来判断，使用一个三角形的bounding box（AABB）</p>
+<h3 id="作业结果">作业结果</h3>
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片2.png" width="70%">
+<font color=Red>问题如下：</font>
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片3.png" width="70%">
+在判断点在三角形中出现了问题，注释为我写的错误代码，错误原因：向量是用终点坐标减起点坐标，这写的也太混乱了
+注意正确代码使用了dot来判断向量是否同向，其实我这样判断也是可以的
+<h2 id="Lecture-6">Lecture-6</h2>
+<h3 id="走样的定义">走样的定义</h3>
+<p>Artifacts：锯齿，摩尔纹（去掉奇数行和奇数列）
+出现的原理：信号变化太快，采样跟不上，只有通过高频率采样点采样高频函数才能恢复地更准确
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片.png" width="70%">
+走样的定义：
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片1.png" width="70%"></p>
+<h3 id="反走样">反走样</h3>
+<p><strong>在采样之前先进行模糊（滤波（去掉一系列的频率））</strong></p>
+<blockquote>
+<p>傅里叶变换：把一个函数从时域（空间上的不同信息也算）变到频域
+而图像频率可以理解为灰度变化的剧烈程度（图形边界）</p>
+</blockquote>
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片2.png" width="80%">
+上图为应用高通滤波的情况，右图中越靠近中间的区域表示低频区域，只保留高频滤波在左图上表现为只保留边界
+<p>滤波=平均=卷积
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片3.png" width="70%"></p>
 <ul>
-<li>摆放模型的位置（model transformation）</li>
-<li>找一个角度“拍照”(view transformation)
+<li>时域卷积等于频域相乘</li>
+<li>时域乘积等于频域卷积</li>
+</ul>
+<h4 id="从频域上来分析采样和走样">从频域上来分析采样和走样</h4>
+<p>采样：左边为时域上函数乘以一个冲击函数得到的采样点(e)，右边为对应的函数在频域上的卷积，也就是重复原始信号的频谱(f)
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片4.png" width="80%">
+走样，频谱发生了混叠</p>
+<center class="half">
+	<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片5.png" width="50%"><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片6.png" width="50%">
+</center>
+采样越稀疏，对应的频谱上越密集
+下图使用低通滤波，过滤掉高频，避免频谱混叠
 <ul>
-<li>对于相机的定义：Position, Look-at, Up direction（相机位置，往哪里看，向上方向（要两个方向才能定义一个坐标系））</li>
-<li>相机永远在原点，看向-Z，向上为+Y<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%873.png" alt=""></li>
-<li>注意这里是平移矩阵在右边，表示先算</li>
+<li><font color=Red>MSAA</font>：使用更多的采样点来进行反走样，将一个像素划分成多个小像素，根据小像素覆盖率算近似颜色值（解决的是图像的模糊过程，但也覆盖了采样过程），增大了计算量</li>
+<li>FXAA：图像后期处理，得到有锯齿的图后将边界换成没有锯齿的边界</li>
+<li>TAA：复用上一帧的图像</li>
+<li>DLSS：通过深度学习，在小图放大的过程中补充细节</li>
 </ul>
-</li>
-<li>要对其他物体做同样的变换，是为了保证相机和物体相对位置不变</li>
-</ul>
-<h2 id="投影变换-Projection-transformation">投影变换 Projection transformation</h2>
-<p>透视投影固定物体位置，相机位置无限远，最后得到的结果就近似于正交投影</p>
-<ul>
-<li>Orthographic projection
-<ul>
-<li>移动到立方体中，再映射到标准立方体中（先把立方体中心移动到原点，再把立方体xyz轴拉成标准（缩放））</li>
-<li>在z轴上定义[f, n]，其中f的z值更小，n更大（看向-Z方向）</li>
-<li><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%874.png" alt=""></li>
-<li>做完了投影变换后，物体会被拉伸</li>
-</ul>
-</li>
-<li>Perspective projection
-<ul>
-<li>（x,y,z,1）和（kx,ky,kz,k!=0）以及（xz,yz,z^2,z!=0）都表示同一个点</li>
-<li>一种思路，把空间中的视锥体挤成和近平面相同的长方体，再进行正交投影，规定近平面永远不变（也只有近平面上的点不会改变），远平面上的点的z值也不会发生改变，通过相似三角形确定“挤压”后的x,y位置<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片5.png" width="70%">
-中间一行为（0，0，n+f，-nf）</li>
-</ul>
-</li>
-<li>最后的结果为：M<sub>persp</sub>=M<sub>ortho</sub>M<sub>persp-&gt;ortho</sub></li>
-</ul>
-<h2 id="assignment1结果">assignment1结果</h2>
-<p><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%876.png" alt=""></p>
 
       
     </div>
@@ -417,7 +429,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2021/03/01/lecture4/" title="Lecture4-变换矩阵">http://example.com/2021/03/01/lecture4/</a>
+    <a href="http://example.com/2021/03/03/lecture5/" title="Lecture5-光栅化 & Lecture6-反走样">http://example.com/2021/03/03/lecture5/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -447,14 +459,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2021/03/02/raytracing_in_oneweekend%E7%AC%94%E8%AE%B0/" rel="next" title="Ray Tracing笔记">
+                <i class="fa fa-chevron-left"></i> Ray Tracing笔记
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/02/raytracing_in_oneweekend%E7%AC%94%E8%AE%B0/" rel="prev" title="Ray Tracing笔记">
-                Ray Tracing笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/03/vue-01/" rel="prev" title="vue基础-01">
+                vue基础-01 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -587,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5"><span class="nav-number">1.</span> <span class="nav-text">变换矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E5%8F%98%E6%8D%A2-View-Camera-transformation"><span class="nav-number">2.</span> <span class="nav-text">视图变换 View&#x2F;Camera transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2-Projection-transformation"><span class="nav-number">3.</span> <span class="nav-text">投影变换 Projection transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#assignment1%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">assignment1结果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-5"><span class="nav-number">1.</span> <span class="nav-text">Lecture-5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E4%B8%9A%E7%BB%93%E6%9E%9C"><span class="nav-number">1.1.</span> <span class="nav-text">作业结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-6"><span class="nav-number">2.</span> <span class="nav-text">Lecture-6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%B0%E6%A0%B7%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">走样的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E8%B5%B0%E6%A0%B7"><span class="nav-number">2.2.</span> <span class="nav-text">反走样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E9%A2%91%E5%9F%9F%E4%B8%8A%E6%9D%A5%E5%88%86%E6%9E%90%E9%87%87%E6%A0%B7%E5%92%8C%E8%B5%B0%E6%A0%B7"><span class="nav-number">2.2.1.</span> <span class="nav-text">从频域上来分析采样和走样</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
