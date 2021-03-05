@@ -79,31 +79,26 @@
 
 
 
-<meta name="description" content="光栅化中会判断像素点和三角形的位置关系，可以通过叉积来判断">
+<meta name="description" content="Blinn-Phong着色模型">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture5-光栅化 &amp; Lecture6-反走样">
-<meta property="og:url" content="http://example.com/2021/03/03/lecture5/index.html">
+<meta property="og:title" content="Lecture-7 着色">
+<meta property="og:url" content="http://example.com/2021/03/04/lecture7/index.html">
 <meta property="og:site_name" content="Delafin&#39;s">
-<meta property="og:description" content="光栅化中会判断像素点和三角形的位置关系，可以通过叉积来判断">
+<meta property="og:description" content="Blinn-Phong着色模型">
 <meta property="og:locale">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片1.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片2.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片3.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片1.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片2.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片3.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片4.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片5.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片6.png">
-<meta property="article:published_time" content="2021-03-03T02:24:25.000Z">
-<meta property="article:modified_time" content="2021-03-04T01:00:03.804Z">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片1.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片2.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片3.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片4.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片5.png">
+<meta property="article:published_time" content="2021-03-04T00:22:17.000Z">
+<meta property="article:modified_time" content="2021-03-04T00:56:28.743Z">
 <meta property="article:author" content="Delafin">
 <meta property="article:tag" content="图形学">
 <meta property="article:tag" content="GAMES101">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片.png">
+<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片.png">
 
 
 
@@ -133,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/03/03/lecture5/"/>
+  <link rel="canonical" href="http://example.com/2021/03/04/lecture7/"/>
 
 
 
 
 
-  <title>Lecture5-光栅化 & Lecture6-反走样 | Delafin's</title>
+  <title>Lecture-7 着色 | Delafin's</title>
   
 
 
@@ -266,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/03/lecture5/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/04/lecture7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -283,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lecture5-光栅化 & Lecture6-反走样</h1>
+          <h1 class="post-title" itemprop="name headline">Lecture-7 着色</h1>
         
 
         <div class="post-meta">
@@ -295,8 +290,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-03T10:24:25+08:00">
-                2021-03-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-04T08:22:17+08:00">
+                2021-03-04
               </time>
             
 
@@ -355,59 +350,50 @@
       
 
       
-        <p>光栅化中会判断像素点和三角形的位置关系，可以通过叉积来判断</p>
+        <p>Blinn-Phong着色模型</p>
 <span id="more"></span>
-<h2 id="Lecture-5">Lecture-5</h2>
-<p>定义屏幕空间的左下角为原点，向右为x，向上为y，且定义像素下标都为整数
-范围为(0,0)到(width-1,height-1)
-将原本的[-1,1]*[-1,1]的标准立方面拉到[0,width]*[0,height]这个平面上
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片.png" width="70%"></p>
-<p>判断一个像素的中心点和三角形的位置关系，通过采样的方式（将一个函数离散化的过程）
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片1.png" width="70%">
-以上图为例，P1P2×P1Q大于0，P0P1×P0Q大于0，而P2P0×P2Q小于0，所以在三角形外面（全正或者全负才会在三角形中）
-边界上的点要么不做处理，要么特殊处理
-没必要找所有的像素点来判断，使用一个三角形的bounding box（AABB）</p>
-<h3 id="assignment2结果">assignment2结果</h3>
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片2.png" width="70%">
-<font color=Red>问题如下：</font>
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture5/未命名图片3.png" width="70%">
-在判断点在三角形中出现了问题，注释为我写的错误代码，错误原因：向量是用终点坐标减起点坐标，这写的也太混乱了
-<p>注意正确代码使用了dot来判断向量是否同向，其实我这样判断也是可以的</p>
-<h2 id="Lecture-6">Lecture-6</h2>
-<h3 id="走样的定义">走样的定义</h3>
-<p>Artifacts：锯齿，摩尔纹（去掉奇数行和奇数列）
-出现的原理：信号变化太快，采样跟不上，只有通过高频率采样点采样高频函数才能恢复地更准确
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片.png" width="70%">
-走样的定义：
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片1.png" width="70%"></p>
-<h3 id="反走样">反走样</h3>
-<p><strong>在采样之前先进行模糊（滤波（去掉一系列的频率））</strong></p>
-<blockquote>
-<p>傅里叶变换：把一个函数从时域（空间上的不同信息也算）变到频域
-而图像频率可以理解为灰度变化的剧烈程度（图形边界）</p>
-</blockquote>
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片2.png" width="80%">
-上图为应用高通滤波的情况，右图中越靠近中间的区域表示低频区域，只保留高频滤波在左图上表现为只保留边界
-<p>滤波=平均=卷积
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片3.png" width="70%"></p>
-<ul>
-<li>时域卷积等于频域相乘</li>
-<li>时域乘积等于频域卷积</li>
-</ul>
-<h4 id="从频域上来分析采样和走样">从频域上来分析采样和走样</h4>
-<p>采样：左边为时域上函数乘以一个冲击函数得到的采样点(e)，右边为对应的函数在频域上的卷积，也就是重复原始信号的频谱(f)
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片4.png" width="80%">
-走样，频谱发生了混叠</p>
-<center class="half">
-	<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片5.png" width="50%"><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture6/未命名图片6.png" width="50%">
+<h2 id="深度缓存">深度缓存</h2>
+<p>解决物体间的遮挡问题：Z-buffering（frame buffer存放颜色信息，depth buffer存放深度信息）
+使用深度缓存算法复杂度为O(n)（对于n个三角形）
+基本上浮点型数字不会完全相同，但实际上还是有可能出现</p>
+<h2 id="Blinn-Phong着色">Blinn-Phong着色</h2>
+<p>由三个部分组成：漫反射、高光和环境光</p>
+<h3 id="漫反射">漫反射</h3>
+<center>
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片.png" width="50%"><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片1.png" width="50%">
 </center>
-采样越稀疏，对应的频谱上越密集
-下图使用低通滤波，过滤掉高频，避免频谱混叠
+对于点光源如上图所示，漫反射和观察方向没有关系
+<br>
+l,n,v这三个向量都是单位向量，注意方向他们的，着色目前不考虑阴影（局部性）
+<h3 id="高光">高光</h3>
+<p>反射光和观察方向相近时（在Blinn-Phong中就是I和V的角平分线和N接近）
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片2.png" width="70%">
+ks镜面反射系数，一般是白色的
+<br>
+增加指数p，可以增大衰减速度，减小高光区域</p>
+<h3 id="环境光">环境光</h3>
+<p>常数，和光照方向及观察方向无关
+最终的结果：
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片3.png"></p>
+<h2 id="着色频率">着色频率</h2>
+<p>着色频率（将着色应用在哪些点或者面上）影响着色效果（对于相同的模型和材质）</p>
 <ul>
-<li><font color=Red>MSAA</font>：使用更多的采样点来进行反走样，将一个像素划分成多个小像素，根据小像素覆盖率算近似颜色值（解决的是图像的模糊过程，但也覆盖了采样过程），增大了计算量</li>
-<li>FXAA：图像后期处理，得到有锯齿的图后将边界换成没有锯齿的边界</li>
-<li>TAA：复用上一帧的图像</li>
-<li>DLSS：通过深度学习，在小图放大的过程中补充细节</li>
+<li>Flat Shading：着色应用在每个面上，三角形内部没有变化</li>
+<li>Gouraud Shading：着色应用在每个点上，求出每个顶点的法线就可以得到每个顶点的颜色，三角形内部的点的颜色通过插值计算</li>
+<li>Phong Shading：着色应用在像素上，求出三个顶点的法线，对每个像素插值一个法线</li>
+</ul>
+<h3 id="逐顶点的法线">逐顶点的法线</h3>
+<p>对和顶点相邻的面的法线进行平均，也可以根据面的面积进行加权平均</p>
+<h3 id="逐像素的法线">逐像素的法线</h3>
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片4.png" width="70%">
+对顶点法线进行插值得到
+<h2 id="渲染管线">渲染管线</h2>
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture7/未命名图片5.png" width="80%">
+<ul>
+<li>变换投影：Vertex Processing-&gt;Model, View, Projection transforms</li>
+<li>光栅化：Sampling</li>
+<li>Fragment Processing：Z-Buffer Visibility Test, Shading（顶点和片元处理阶段都可能，取决于着色频率）, Texture mapping</li>
+<li>着色</li>
 </ul>
 
       
@@ -429,7 +415,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2021/03/03/lecture5/" title="Lecture5-光栅化 & Lecture6-反走样">http://example.com/2021/03/03/lecture5/</a>
+    <a href="http://example.com/2021/03/04/lecture7/" title="Lecture-7 着色">http://example.com/2021/03/04/lecture7/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -459,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/02/raytracing_in_oneweekend%E7%AC%94%E8%AE%B0/" rel="next" title="Ray Tracing笔记">
-                <i class="fa fa-chevron-left"></i> Ray Tracing笔记
+              <a href="/2021/03/03/vue-01/" rel="next" title="vue基础-01">
+                <i class="fa fa-chevron-left"></i> vue基础-01
               </a>
             
           </div>
@@ -469,8 +455,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/03/vue-01/" rel="prev" title="vue基础-01">
-                vue基础-01 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/05/vue-02/" rel="prev" title="vue基础-02">
+                vue基础-02 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -603,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-5"><span class="nav-number">1.</span> <span class="nav-text">Lecture-5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#assignment2%E7%BB%93%E6%9E%9C"><span class="nav-number">1.1.</span> <span class="nav-text">assignment2结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-6"><span class="nav-number">2.</span> <span class="nav-text">Lecture-6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%B0%E6%A0%B7%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">走样的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E8%B5%B0%E6%A0%B7"><span class="nav-number">2.2.</span> <span class="nav-text">反走样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E9%A2%91%E5%9F%9F%E4%B8%8A%E6%9D%A5%E5%88%86%E6%9E%90%E9%87%87%E6%A0%B7%E5%92%8C%E8%B5%B0%E6%A0%B7"><span class="nav-number">2.2.1.</span> <span class="nav-text">从频域上来分析采样和走样</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E7%BC%93%E5%AD%98"><span class="nav-number">1.</span> <span class="nav-text">深度缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blinn-Phong%E7%9D%80%E8%89%B2"><span class="nav-number">2.</span> <span class="nav-text">Blinn-Phong着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%AB%E5%8F%8D%E5%B0%84"><span class="nav-number">2.1.</span> <span class="nav-text">漫反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%85%89"><span class="nav-number">2.2.</span> <span class="nav-text">高光</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%85%89"><span class="nav-number">2.3.</span> <span class="nav-text">环境光</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9D%80%E8%89%B2%E9%A2%91%E7%8E%87"><span class="nav-number">3.</span> <span class="nav-text">着色频率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%90%E9%A1%B6%E7%82%B9%E7%9A%84%E6%B3%95%E7%BA%BF"><span class="nav-number">3.1.</span> <span class="nav-text">逐顶点的法线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%90%E5%83%8F%E7%B4%A0%E7%9A%84%E6%B3%95%E7%BA%BF"><span class="nav-number">3.2.</span> <span class="nav-text">逐像素的法线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF"><span class="nav-number">4.</span> <span class="nav-text">渲染管线</span></a></li></ol></div>
             
 
           </div>
