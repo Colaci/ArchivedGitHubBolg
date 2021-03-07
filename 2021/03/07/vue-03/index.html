@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,vue," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Vue语法2  过滤器  12345678&lt;script&gt;	methods:&amp;#123;&amp;#125;,	filters:&amp;#123;		func(要过滤的东西)&amp;#123;&amp;#125;	&amp;#125;&lt;&#x2F;script&gt;&lt;!--在调用时--&gt;&lt;td&gt;&amp;#123;&amp;#123;item.price | func&amp;#125;&amp;#125;&lt;&#x2F;td&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue基础-03">
+<meta property="og:url" content="http://example.com/2021/03/07/vue-03/index.html">
+<meta property="og:site_name" content="Delafin&#39;s">
+<meta property="og:description" content="Vue语法2  过滤器  12345678&lt;script&gt;	methods:&amp;#123;&amp;#125;,	filters:&amp;#123;		func(要过滤的东西)&amp;#123;&amp;#125;	&amp;#125;&lt;&#x2F;script&gt;&lt;!--在调用时--&gt;&lt;td&gt;&amp;#123;&amp;#123;item.price | func&amp;#125;&amp;#125;&lt;&#x2F;td&gt;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-03-07T12:51:28.000Z">
+<meta property="article:modified_time" content="2021-03-07T12:58:09.244Z">
+<meta property="article:author" content="Delafin">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/03/07/vue-03/"/>
+
+
+
+
+
+  <title>vue基础-03 | Delafin's</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Delafin's</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/07/vue-03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Delafin's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue基础-03</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-07T20:51:28+08:00">
+                2021-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Vue语法2">Vue语法2</h2>
+<ul>
+<li>过滤器</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">	methods:&#123;&#125;,</span><br><span class="line">	filters:&#123;</span><br><span class="line"><span class="javascript">		<span class="function"><span class="title">func</span>(<span class="params">要过滤的东西</span>)</span>&#123;&#125;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--在调用时--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123;item.price | func&#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>javascript中三个高阶函数filter/map/reduce</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">//取得数组中小于100数再乘以2</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> nums=[]</span></span><br><span class="line"><span class="javascript"><span class="comment">//filter中的回调函数必须返回一个bool值，如果为true则自动加入新数组中，否则被过滤掉；遍历数组每个数的同时调用回调函数</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">let</span> newNums=nums.filter(<span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;<span class="keyword">return</span> n&lt;<span class="number">100</span>&#125;)</span></span><br><span class="line"><span class="javascript"><span class="keyword">let</span> new2Nums=newNums.map(<span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;<span class="keyword">return</span> n*<span class="number">2</span>&#125;)</span></span><br><span class="line"><span class="javascript"><span class="comment">//reduce函数的使用：对数组中所有的内容进行汇总，回调函数至少传入两个参数</span></span></span><br><span class="line"><span class="javascript">array.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">preValue,value</span>)</span>&#123;&#125;,initPreValue)</span></span><br><span class="line"><span class="javascript">num2Nums.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">preValue,value</span>)</span>&#123;<span class="keyword">return</span> preValue+value&#125;,<span class="number">0</span>)<span class="comment">//计算数组总和</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//也可以向下面这样写</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">let</span> total=nums.filter(<span class="function"><span class="params">n</span> =&gt;</span> n&lt;<span class="number">100</span>).map(<span class="function"><span class="params">n</span> =&gt;</span> n*<span class="number">2</span>).reduce(<span class="function">(<span class="params">pre,n</span>) =&gt;</span> pre+n)</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>v-model，实现双向绑定，将表单中的值和data中的变量直接进行绑定（相当于由v-bind和函数实现两个单向绑定）
+<ul>
+<li>lazy修饰符<br>v-model.lazy只有在用户输入回车或数据失去焦点时，才会更新</li>
+<li>number修饰符<br>v-model.number让绑定的值都是number类型（默认为string类型）</li>
+<li>trim修饰符<br>去除左右两边空格</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">:value</span>=<span class="string">&quot;message&quot;</span> <span class="attr">v-on:input</span>=<span class="string">&quot;valueChange&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">data:&#123;<span class="attr">message</span>:<span class="string">&quot;&quot;</span>&#125;</span></span><br><span class="line">methods:&#123;</span><br><span class="line"><span class="javascript">	<span class="function"><span class="title">valueChange</span>(<span class="params">event</span>)</span>&#123;<span class="built_in">this</span>.message=event.target.value&#125;</span></span><br><span class="line"><span class="javascript">	<span class="comment">//这里通过传入event来获得input的值</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--或者直接写成--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">:value</span>=<span class="string">&quot;message&quot;</span> <span class="attr">v-on:input</span>=<span class="string">&quot;$event.target.value&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>radio组件对于有相同name的组件的选择是互斥的，但如果v-model绑定的是同一个变量则可以不设置name属性；绑定的变量将和radio组件的value属性相同</li>
+<li>checkbox组件作为单选框时值为布尔，多选框时值为数组</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="comment">&lt;!--只选择一个，fruit为str--&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;abc&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;fruit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;apple&quot;</span>&gt;</span>apple<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">&gt;<span class="comment">&lt;!--选择多个，fruits为数组--&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;abc&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;fruits&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;apple&quot;</span>&gt;</span>apple<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>input值绑定（其实就是通过v-bind）</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">v-for</span>=<span class="string">&quot;item in items&quot;</span> <span class="attr">:for</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">:value</span>=<span class="string">&quot;item&quot;</span> <span class="attr">:id</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;newItems&quot;</span>&gt;</span>&#123;&#123;item&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="组件化开发">组件化开发</h2>
+<h3 id="组件的基本使用">组件的基本使用</h3>
+<p>任何应用都可以抽象成一棵组件树<br>组件使用三个步骤：</p>
+<ul>
+<li>Vue.extend()创建组件构造器</li>
+<li>Vue.component()注册组件</li>
+<li>在vue实例范围内使用组件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里使用``来定义字符串，因为其可以保留换行</span></span><br><span class="line"><span class="keyword">const</span> cpn=Vue.extend(&#123;</span><br><span class="line">        template:<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div&gt;</span></span><br><span class="line"><span class="string">            &lt;h2&gt;这是一个标题&lt;/h2&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">        `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//组件注册传入两个参数，第一个是使用时组件的标签名，第二个为组件对象</span></span><br><span class="line"><span class="comment">//这种方法注册的组件为全局组件，可以在多个vue实例下面使用</span></span><br><span class="line">Vue.component(<span class="string">&quot;my_cpn&quot;</span>,cpn)</span><br><span class="line"><span class="comment">//注册局部组件，只能在挂载了相应id的区域使用</span></span><br><span class="line"><span class="keyword">const</span> app=<span class="keyword">new</span> Vue&#123;&#123;</span><br><span class="line">	el:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">	components:&#123;</span><br><span class="line">		<span class="comment">//使用组件时的标签名：组件对象</span></span><br><span class="line">		my_cpn:cpn</span><br><span class="line">	&#125;</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="子组件和父组件">子组件和父组件</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">//在一个组件构造器中，注册另一个组件</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> cpnC1=Vue.extend(&#123;<span class="attr">template</span>: <span class="string">``</span>&#125;)</span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> cpnC2=Vue.extend(&#123;<span class="attr">template</span>: <span class="string">`&lt;cpn1&gt;&lt;/cpn1&gt;`</span>&#125;,<span class="attr">components</span>: &#123;<span class="attr">cpn1</span>: cpnC1&#125;)</span></span><br><span class="line"><span class="javascript"><span class="comment">//cpnC2为父组件，cpnC1为子组件，只需要在vue实例中注册父组件cpnC2（其实可以把Vue实例当成是根上的组件）</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//这样做不能单独使用cpn1标签，只能在cpn2中使用，除非在全局或者vue实例中注册</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//在编译的时候组件已经被替换了</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="comment">//全局注册语法糖</span></span></span><br><span class="line"><span class="javascript">Vue.component(<span class="string">&quot;cpn1&quot;</span>,&#123;<span class="attr">template</span>:<span class="string">`模板标签内容`</span>&#125;)</span></span><br><span class="line"><span class="javascript"><span class="comment">//局部组件</span></span></span><br><span class="line">components:&#123;</span><br><span class="line"><span class="javascript">	<span class="string">&#x27;cpn2&#x27;</span>:&#123;<span class="attr">template</span>:<span class="string">``</span>&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--为了让代码更易读，使用模板抽离的写法--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--1.script标签，类型为text/x-template--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/x-template&quot;</span> <span class="attr">id</span>=<span class="string">&quot;cpn&quot;</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>这是标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>这是内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">Vue.component(<span class="string">&#x27;cpn&#x27;</span>,&#123;<span class="attr">template</span>:<span class="string">&quot;#cpn&quot;</span>&#125;)</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--2.template标签--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="组件参数访问">组件参数访问</h3>
+<p>组件不能直接访问vue实例中的数据，组件的数据放在Vue.component()传入的data对象中；<font color=Red>这个对象必须是函数且返回一个对象保存所有数据</font><br>组件中元素绑定的函数要写组件自己的methods中<br>如果组件data不是一个函数而是一个对象，组件之间对于数据的操作会互相影响</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">Vue.component(<span class="string">&#x27;cpn&#x27;</span>,&#123;<span class="attr">template</span>:<span class="string">&quot;#cpn&quot;</span>,<span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">	reutrn &#123;<span class="attr">title</span>:<span class="string">&quot;abc&quot;</span>&#125;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>父子组件间的通讯（一般父组件拿到数据后，传递给子组件进行遍历和展示）
+<ul>
+<li><strong>通过props向子组件传递消息</strong>，类似于v-bind传递<br>组件对象props中通过数组的方式定义了要传入的参数名称和个数<br>在使用时通过v-bind将其和父组件中的变量绑定<br>在template模板中定义使用方式<br><font color=Red>注意props属性中起名不要用驼峰</font></li>
+<li><strong>通过事件向父组件发送消息</strong>，子组件发射一个事件，父组件监听这个事件</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--父组件向子组件通过props传递--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--这里使用组件，传入参数--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">cpn</span> <span class="attr">:cmovies</span>=<span class="string">&quot;movies&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">cpn</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--这里定义模板，可以直接使用props中的变量--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">&quot;cpn&quot;</span>&gt;</span>&#123;&#123;cmovies&#125;&#125;<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--这里传入模板各种属性--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">	<span class="keyword">const</span> cpn=&#123;</span></span><br><span class="line"><span class="javascript">	template:<span class="string">&quot;#cpn&quot;</span>, <span class="comment">//这里记得加#</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//props:[&#x27;cmovies&#x27;],</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//除了数组的方式还可以传递对象</span></span></span><br><span class="line">    props:&#123;</span><br><span class="line"><span class="javascript">    	<span class="comment">//cmovies:Array</span></span></span><br><span class="line"><span class="javascript">    	<span class="comment">//对传递对象类型做出限制</span></span></span><br><span class="line">    	</span><br><span class="line">    	cmovies:&#123;</span><br><span class="line"><span class="javascript">    		type:<span class="built_in">Array</span>,</span></span><br><span class="line"><span class="javascript">    		<span class="comment">//如果对象类型是数组或者对象时，想要default为空则必须传递一个函数</span></span></span><br><span class="line"><span class="javascript">    		<span class="function"><span class="title">default</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> []&#125;,</span></span><br><span class="line"><span class="javascript">    		required:<span class="literal">true</span>	<span class="comment">//限制该属性必须被传递</span></span></span><br><span class="line">    	&#125;</span><br><span class="line"><span class="javascript">    	<span class="comment">//既有类型限制又有默认值</span></span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="javascript">	<span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> &#123;&#125;&#125;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--在模板定义中定义点击事件onClick--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="function"><span class="title">onClick</span>(<span class="params">item</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">	<span class="comment">//注意这里不要使用驼峰命名</span></span></span><br><span class="line"><span class="javascript">	<span class="built_in">this</span>.$emit(<span class="string">&quot;btnclick&quot;</span>,item)</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--在使用使要监听这个方法，并调用父组件的事件处理函数--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--注意这里虽然没有写传入的参数，但是atbtnclick其实是有一个参数的--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">cpn</span> @<span class="attr">btnclick</span>=<span class="string">&quot;atbtnclick&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">cpn</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>子组件props中的值不建议通过v-model等方式进行改变，而应该由父组件进行传递；<br>可以使用data包裹一个下props中的变量，使v-model绑定这个外层变量</li>
+</ul>
+<blockquote>
+<p>例子实现了一个子组件input双向绑定父组件data中的变量，注意v-model可以将input和子组件中的data双向绑定，可以使用watch自定义函数将input输入再和父组件中的输入绑定，详见代码</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">components:&#123;</span><br><span class="line">	cpn:&#123;</span><br><span class="line"><span class="javascript">	template:<span class="string">&quot;#cpn&quot;</span>,</span></span><br><span class="line">	props:&#123;</span><br><span class="line"><span class="javascript">	number1:<span class="built_in">Number</span>,</span></span><br><span class="line"><span class="javascript">	number2:<span class="built_in">Number</span></span></span><br><span class="line">	&#125;,</span><br><span class="line"><span class="javascript">	<span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">		dnumber1:<span class="built_in">this</span>.number1,</span></span><br><span class="line"><span class="javascript">		dnumber2:<span class="built_in">this</span>.number2</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="父子组件相互访问">父子组件相互访问</h3>
+<ul>
+<li>父组件访问子组件：使用$children（返回一个数组）或$refs</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cpn</span> <span class="attr">ref</span>=<span class="string">&quot;aaa&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">cpn</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">//使用较少</span></span></span><br><span class="line"><span class="javascript"><span class="built_in">this</span>.$children[<span class="number">0</span>].func()</span></span><br><span class="line"><span class="javascript"><span class="comment">//访问属性</span></span></span><br><span class="line"><span class="javascript"><span class="built_in">this</span>.$children[<span class="number">0</span>].name</span></span><br><span class="line"><span class="javascript"><span class="comment">//使用refs取得，要在组件上添加属性ref</span></span></span><br><span class="line"><span class="javascript"><span class="built_in">this</span>.$refs.aaa</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>子组件访问父组件：使用$parent</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">//访问父组件</span></span></span><br><span class="line"><span class="javascript"><span class="built_in">this</span>.$parent.name</span></span><br><span class="line"><span class="javascript"><span class="built_in">this</span>.$parent.func()</span></span><br><span class="line"><span class="javascript"><span class="comment">//访问根组件</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Delafin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/03/07/vue-03/" title="vue基础-03">http://example.com/2021/03/07/vue-03/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/05/vue-02/" rel="next" title="vue基础-02">
+                <i class="fa fa-chevron-left"></i> vue基础-02
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/07/vue-04/" rel="prev" title="vue基础-04">
+                vue基础-04 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue%E8%AF%AD%E6%B3%952"><span class="nav-number">1.</span> <span class="nav-text">Vue语法2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91"><span class="nav-number">2.</span> <span class="nav-text">组件化开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">组件的基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E7%BB%84%E4%BB%B6%E5%92%8C%E7%88%B6%E7%BB%84%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">子组件和父组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%8F%82%E6%95%B0%E8%AE%BF%E9%97%AE"><span class="nav-number">2.3.</span> <span class="nav-text">组件参数访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9B%B8%E4%BA%92%E8%AE%BF%E9%97%AE"><span class="nav-number">2.4.</span> <span class="nav-text">父子组件相互访问</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Delafin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
