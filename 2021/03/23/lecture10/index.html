@@ -79,27 +79,24 @@
 
 
 
-<meta name="description" content="纺射变换和投影变换">
+<meta name="description" content="贴图和曲线简介">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture4-变换矩阵">
-<meta property="og:url" content="http://example.com/2021/03/01/lecture4/index.html">
+<meta property="og:title" content="Lecture10">
+<meta property="og:url" content="http://example.com/2021/03/23/lecture10/index.html">
 <meta property="og:site_name" content="Delafin&#39;s">
-<meta property="og:description" content="纺射变换和投影变换">
+<meta property="og:description" content="贴图和曲线简介">
 <meta property="og:locale">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片1.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片2.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%873.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%874.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片5.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%876.png">
-<meta property="article:published_time" content="2021-03-01T01:29:16.000Z">
-<meta property="article:modified_time" content="2021-03-02T04:50:42.527Z">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/1.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/2.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/3.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/lec11.PNG">
+<meta property="article:published_time" content="2021-03-23T07:01:20.000Z">
+<meta property="article:modified_time" content="2021-03-23T07:03:04.638Z">
 <meta property="article:author" content="Delafin">
 <meta property="article:tag" content="图形学">
 <meta property="article:tag" content="GAMES101">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png">
+<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/1.PNG">
 
 
 
@@ -129,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/03/01/lecture4/"/>
+  <link rel="canonical" href="http://example.com/2021/03/23/lecture10/"/>
 
 
 
 
 
-  <title>Lecture4-变换矩阵 | Delafin's</title>
+  <title>Lecture10 | Delafin's</title>
   
 
 
@@ -266,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/01/lecture4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/23/lecture10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -283,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lecture4-变换矩阵</h1>
+          <h1 class="post-title" itemprop="name headline">Lecture10</h1>
         
 
         <div class="post-meta">
@@ -295,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-01T09:29:16+08:00">
-                2021-03-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-23T15:01:20+08:00">
+                2021-03-23
               </time>
             
 
@@ -355,52 +352,59 @@
       
 
       
-        <p>纺射变换和投影变换</p>
+        <p>贴图和曲线简介</p>
 <span id="more"></span>
-<h2 id="变换矩阵">变换矩阵</h2>
-<figure class="half" float="right">
-    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png" width="230">
-    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片1.png" width="230">
-</figure>
-而对于任意绕轴的旋转，当成是旋转的组合（罗德里格斯旋转公式）
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片2.png">
-后面的N为叉乘的矩阵形式
-如果是不过原点的某个轴，则先将轴移动到原点做旋转再移动回原来的位置
-<h2 id="视图变换-View-Camera-transformation">视图变换 View/Camera transformation</h2>
-<p>因为移动模型和移动相机可能得到一模一样的结果，所以假定相机位置固定，只移动物体位置（model transformation）</p>
+<h3 id="环境贴图">环境贴图</h3>
+<p>假设环境光来自无线远处，只记录方向信息而没有深度意义<br>可以将环境光记录在球体上并展开成一张贴图</p>
+<blockquote>
+<p>为了解决展开的扭曲问题，使用一个立方体包围球体，将纹理展开成立方体的六个面（将光照信息存在立方体的表面上，球面上的点连接圆心连线打到立方体的表面上）</p>
+</blockquote>
+<h3 id="凹凸贴图">凹凸贴图</h3>
+<p>定义纹理上任意一个点的相对高度信息，通过相对高度信息对于任意一个点都能求出新的法线信息
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/1.PNG" width="80%">
+在水平面上的情况，通过求扰动后点的切线求该点法线
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/2.PNG" width="80%">
+3维情况
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/3.PNG" width="80%">
+<font color=Red>这里定义的是局部坐标系的局部法线</font>
+而位移贴图实际会改变顶点的位置</p>
+<h2 id="几何">几何</h2>
 <ul>
-<li>摆放模型的位置（model transformation）</li>
-<li>找一个角度“拍照”(view transformation)
+<li>隐式几何：告知点之间的关系（函数，难以直观想象几何长什么样，但是方便计算和判断某个点和其相对位置，容易求交）<br>Constructive Solid Geometry通过基本几何体之间的代数运算<br>距离函数：描述任何一个点到表面上的点的最近距离，所以空间中任何一个点都可以被定义一个值，而值等于0的点就是距离函数表示下的物体表面<font color=Red>图片4</font>对A和B定义的不同值直接相加</li>
+<li>显式几何：三角形面表示，参数映射通过一个函数将(u,v)-&gt;(x,y,z)</li>
+</ul>
+<h3 id="曲线">曲线</h3>
+<h4 id="Explicit-Representation">Explicit Representation</h4>
 <ul>
-<li>对于相机的定义：Position, Look-at, Up direction（相机位置，往哪里看，向上方向（要两个方向才能定义一个坐标系））</li>
-<li>相机永远在原点，看向-Z，向上为+Y<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%873.png" alt=""></li>
-<li>注意这里是平移矩阵在右边，表示先算</li>
+<li>Point Cloud: List of points(x,y,z)</li>
+<li>Polygon Mesh: Store vertices and polygons(.obj是一个文本文件，分开表示顶点，法线和纹理坐标，f表示哪些点构成面以及面的信息)</li>
 </ul>
-</li>
-<li>要对其他物体做同样的变换，是为了保证相机和物体相对位置不变</li>
-</ul>
-<h2 id="投影变换-Projection-transformation">投影变换 Projection transformation</h2>
-<p>透视投影固定物体位置，相机位置无限远，最后得到的结果就近似于正交投影</p>
-<ul>
-<li>Orthographic projection
-<ul>
-<li>移动到立方体中，再映射到标准立方体中（先把立方体中心移动到原点，再把立方体xyz轴拉成标准（缩放））</li>
-<li>在z轴上定义[f, n]，其中f的z值更小，n更大（看向-Z方向）</li>
-<li><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%874.png" alt=""></li>
-<li>做完了投影变换后，物体会被拉伸</li>
-</ul>
-</li>
-<li>Perspective projection
-<ul>
-<li>（x,y,z,1）和（kx,ky,kz,k!=0）以及（xz,yz,z^2,z!=0）都表示同一个点</li>
-<li>一种思路，把空间中的视锥体挤成和近平面相同的长方体，再进行正交投影，规定近平面永远不变（也只有近平面上的点不会改变），远平面上的点的z值也不会发生改变，通过相似三角形确定“挤压”后的x,y位置<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片5.png" width="70%">
-中间一行为（0，0，n+f，-nf）</li>
-</ul>
-</li>
-<li>最后的结果为：M<sub>persp</sub>=M<sub>ortho</sub>M<sub>persp-&gt;ortho</sub></li>
-</ul>
-<h2 id="assignment1结果">assignment1结果</h2>
-<p><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%876.png" alt=""></p>
+<h4 id="贝塞尔曲线">贝塞尔曲线</h4>
+<p>de Casteljau Algorithm
+二次贝塞尔曲线：三个控制点
+画曲线就是找在时间t的点的位置
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/lec11.PNG" width="80%">
+$$
+b<sup>1_0(t)=(1-t)b_0+tb_1\b</sup>1_1(t)=(1-t)b_1+tb_2\b<sup>2_0(t)=(1-t)b</sup>1_0+tb<sup>1_1\b</sup>2_0(t)=(1-t)<sup>2b_0+2t(1-t)b_1+t</sup>2b_2
+$$
+<strong>系数为二项展开</strong>
+$$
+b<sup>n(t)=\sum_{j=0}</sup>{n}{b_jB_j^n(t)}
+$$
+性质：一定过起始点和终点，并在这两点切线等于和下一点的连线
+<strong>只用对控制点做纺射变换</strong>
+曲线在控制点形成的凸包内</p>
+<h4 id="逐段贝塞尔曲线">逐段贝塞尔曲线</h4>
+<p>控制点太多不好控制（一般4个控制点）
+几何上的连续：
+C<sup>0</sup>连续：终点连起点
+C<sup>1</sup>连续：切线大小相等方向相反</p>
+<h4 id="Spline-样条">Spline 样条</h4>
+<p>满足一定的连续性，也有控制点控制（一个可空的曲线）
+B-splines：奇函数样条，用伯恩斯坦多项式对控制点位置加权，具有局部性</p>
+<h3 id="Surfaces">Surfaces</h3>
+<h4 id="贝塞尔曲面">贝塞尔曲面</h4>
+<p>4*4个控制点，在两个方向上分别应用贝塞尔曲线，四条线分别做贝塞尔曲线，然后将四个点当成另外一个方向上的控制点</p>
 
       
     </div>
@@ -433,14 +437,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2021/03/22/lecture8&9/" rel="next" title="Lecture8 & 9 重心坐标插值">
+                <i class="fa fa-chevron-left"></i> Lecture8 & 9 重心坐标插值
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/02/raytracing_in_oneweekend%E7%AC%94%E8%AE%B0/" rel="prev" title="Ray Tracing笔记">
-                Ray Tracing笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/24/lecture13-16/" rel="prev" title="Lecture13-16 光线追踪">
+                Lecture13-16 光线追踪 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -573,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5"><span class="nav-number">1.</span> <span class="nav-text">变换矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E5%8F%98%E6%8D%A2-View-Camera-transformation"><span class="nav-number">2.</span> <span class="nav-text">视图变换 View&#x2F;Camera transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2-Projection-transformation"><span class="nav-number">3.</span> <span class="nav-text">投影变换 Projection transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#assignment1%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">assignment1结果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E8%B4%B4%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">环境贴图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%B9%E5%87%B8%E8%B4%B4%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">凹凸贴图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%BD%95"><span class="nav-number"></span> <span class="nav-text">几何</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B2%E7%BA%BF"><span class="nav-number">1.</span> <span class="nav-text">曲线</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Explicit-Representation"><span class="nav-number">1.1.</span> <span class="nav-text">Explicit Representation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF"><span class="nav-number">1.2.</span> <span class="nav-text">贝塞尔曲线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%90%E6%AE%B5%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF"><span class="nav-number">1.3.</span> <span class="nav-text">逐段贝塞尔曲线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spline-%E6%A0%B7%E6%9D%A1"><span class="nav-number">1.4.</span> <span class="nav-text">Spline 样条</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Surfaces"><span class="nav-number">2.</span> <span class="nav-text">Surfaces</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E9%9D%A2"><span class="nav-number">2.1.</span> <span class="nav-text">贝塞尔曲面</span></a></li></ol></li></ol></div>
             
 
           </div>

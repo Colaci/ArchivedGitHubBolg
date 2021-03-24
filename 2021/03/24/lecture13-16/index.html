@@ -79,27 +79,30 @@
 
 
 
-<meta name="description" content="纺射变换和投影变换">
+<meta name="description" content="光线追踪优化以及渲染方程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture4-变换矩阵">
-<meta property="og:url" content="http://example.com/2021/03/01/lecture4/index.html">
+<meta property="og:title" content="Lecture13-16 光线追踪">
+<meta property="og:url" content="http://example.com/2021/03/24/lecture13-16/index.html">
 <meta property="og:site_name" content="Delafin&#39;s">
-<meta property="og:description" content="纺射变换和投影变换">
+<meta property="og:description" content="光线追踪优化以及渲染方程">
 <meta property="og:locale">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片1.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片2.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%873.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%874.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片5.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%876.png">
-<meta property="article:published_time" content="2021-03-01T01:29:16.000Z">
-<meta property="article:modified_time" content="2021-03-02T04:50:42.527Z">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/lec13a.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/lec13b.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/1.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/2.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/3.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/4.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/5.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/6.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/7.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/8.PNG">
+<meta property="article:published_time" content="2021-03-24T03:43:14.000Z">
+<meta property="article:modified_time" content="2021-03-24T03:55:05.198Z">
 <meta property="article:author" content="Delafin">
 <meta property="article:tag" content="图形学">
 <meta property="article:tag" content="GAMES101">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png">
+<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/lec13a.PNG">
 
 
 
@@ -129,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/03/01/lecture4/"/>
+  <link rel="canonical" href="http://example.com/2021/03/24/lecture13-16/"/>
 
 
 
 
 
-  <title>Lecture4-变换矩阵 | Delafin's</title>
+  <title>Lecture13-16 光线追踪 | Delafin's</title>
   
 
 
@@ -266,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/01/lecture4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/lecture13-16/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -283,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lecture4-变换矩阵</h1>
+          <h1 class="post-title" itemprop="name headline">Lecture13-16 光线追踪</h1>
         
 
         <div class="post-meta">
@@ -295,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-01T09:29:16+08:00">
-                2021-03-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-24T11:43:14+08:00">
+                2021-03-24
               </time>
             
 
@@ -355,52 +358,61 @@
       
 
       
-        <p>纺射变换和投影变换</p>
+        <p>光线追踪优化以及渲染方程</p>
 <span id="more"></span>
-<h2 id="变换矩阵">变换矩阵</h2>
-<figure class="half" float="right">
-    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png" width="230">
-    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片1.png" width="230">
-</figure>
-而对于任意绕轴的旋转，当成是旋转的组合（罗德里格斯旋转公式）
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片2.png">
-后面的N为叉乘的矩阵形式
-如果是不过原点的某个轴，则先将轴移动到原点做旋转再移动回原来的位置
-<h2 id="视图变换-View-Camera-transformation">视图变换 View/Camera transformation</h2>
-<p>因为移动模型和移动相机可能得到一模一样的结果，所以假定相机位置固定，只移动物体位置（model transformation）</p>
+<h2 id="Basic-Ray-Tracing">Basic Ray Tracing</h2>
+<p>光是可逆的reciprocity
+从像素到摄像机连一条线（发出一条光线），打到某一个物体上，检查该点是否对光源可见（对于每次碰撞到的点都要判定，和光源相连看有没有遮挡），只考虑打到的最近的点<br>根据每个碰撞点的法线和光线方向计算着色
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/lec13a.PNG" width="70%"></p>
+<h3 id="Whitted-Style-Ray-Tracing">Whitted-Style Ray Tracing</h3>
+<p>假设完美的反射
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/lec13b.PNG" width="70%">
+各个点都要计算着色，可见的点的颜色会全部加到像素中</p>
+<h3 id="Ray-Surface-Intersection">Ray-Surface Intersection</h3>
+<p>将光线方程带入物体隐式表面的方程p:f(p)=0，可以求得和面的交点（和球相交求解二次函数）<br>对于面片组成的显示表面，光线和三角形求交；转化成光线和平面求交再判定是不是在三角形内部（使用重心坐标表示三角形能简化计算）<br><em>在封闭物体内射出一条光线，和边界的交点数一定是奇数，在物体外则是偶数</em><br>平面的定义，平面法线和平面上任何一点<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/1.PNG" width="70%"></p>
+<h4 id="优化光线和场景求交">优化光线和场景求交</h4>
+<p>使用Bounding Volumes（对于长方体就是三个对面，平行于xyz轴），先判定光线可不可以碰到包围盒再具体判断</p>
+<blockquote>
+<p>对于2维物体：对于两个对面（也就是4个面），可以分别求出光线进入一个面从另一个面出去的时间t1和t2，求这两个时间的交集可以求出光线实际进入盒子和出盒子的时间<br>
+3维物体：光线要进入所有三个对面才算在盒子内，只要出一个对面就离开盒子，t<sub>enter</sub>=max{t<sub>min</sub>}，t<sub>exit</sub>=min{t<sub>max</sub>}，如果t<sub>enter</sub>大于等于t<sub>exit</sub>则不存在交点，由于光线不是直线，要考虑负数的情况，要求离开时间非负</p>
+</blockquote>
+<p>使用包围盒后的进一步优化：</p>
 <ul>
-<li>摆放模型的位置（model transformation）</li>
-<li>找一个角度“拍照”(view transformation)
+<li>
+<p>Uniform Spatial Partition (Grids)<br>预处理，将空间划分成一堆格子（不能太稀疏和密集，当物体分布比较均匀时效果比较好），然后判断哪些格子中有物体（只考虑物体表面），只判断光线和有物体的格子<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/2.PNG" width="70%"></p>
+</li>
+<li>
+<p><strong>Spatial Partitions</strong>：格子的划分会根据空间中物体密度改变，如果物体密集就接着划分<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/3.PNG" width="70%"></p>
 <ul>
-<li>对于相机的定义：Position, Look-at, Up direction（相机位置，往哪里看，向上方向（要两个方向才能定义一个坐标系））</li>
-<li>相机永远在原点，看向-Z，向上为+Y<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%873.png" alt=""></li>
-<li>注意这里是平移矩阵在右边，表示先算</li>
+<li>KD-Tree：在空间中永远只沿一个轴划分一次（所沿的轴交替），只在叶子节点存储对象，中间节点可用于可光想判断是否相交（如果一个节点相交，判断是否和它两个子节点相交，对于叶子节点判断对象相交）</li>
+</ul>
+<blockquote>
+<p>问题：一个物体可能出现在多个叶子节点中，且KD-Tree的建立需要考虑盒子和三角形求交</p>
+</blockquote>
+<ul>
+<li>BSP-Tree：每次选一个方向并非是和轴平齐</li>
 </ul>
 </li>
-<li>要对其他物体做同样的变换，是为了保证相机和物体相对位置不变</li>
-</ul>
-<h2 id="投影变换-Projection-transformation">投影变换 Projection transformation</h2>
-<p>透视投影固定物体位置，相机位置无限远，最后得到的结果就近似于正交投影</p>
-<ul>
-<li>Orthographic projection
-<ul>
-<li>移动到立方体中，再映射到标准立方体中（先把立方体中心移动到原点，再把立方体xyz轴拉成标准（缩放））</li>
-<li>在z轴上定义[f, n]，其中f的z值更小，n更大（看向-Z方向）</li>
-<li><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%874.png" alt=""></li>
-<li>做完了投影变换后，物体会被拉伸</li>
-</ul>
+<li>
+<p>Object Partitions（通过物体划分BVH）：避免了KD-Tree的两个问题，将物体分成两个部分（要注意物体的划分），再重新求包围盒，直到每个包围盒中三角形数量比较少<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/4.PNG" width="70%"></p>
 </li>
-<li>Perspective projection
+</ul>
+<blockquote>
+<p>可以每一次沿包围盒最长的轴进行划分；取中间的物体分成两半，所以要对三角形中心沿某个轴进行排序（找中位数只需要O(n)）</p>
+</blockquote>
+<h3 id="光线传播">光线传播</h3>
+<p>微分立体角
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/5.PNG" width="70%"></p>
 <ul>
-<li>（x,y,z,1）和（kx,ky,kz,k!=0）以及（xz,yz,z^2,z!=0）都表示同一个点</li>
-<li>一种思路，把空间中的视锥体挤成和近平面相同的长方体，再进行正交投影，规定近平面永远不变（也只有近平面上的点不会改变），远平面上的点的z值也不会发生改变，通过相似三角形确定“挤压”后的x,y位置<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片5.png" width="70%">
-中间一行为（0，0，n+f，-nf）</li>
+<li>Irradiance：垂直于某一个面的功率（可以理解光随距离变长能量的和r<sup>2</sup>成比例衰减）</li>
+<li>Intensity：单位立体角的功率</li>
+<li>Radiance：单位立体角和单位面积的功率<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/6.PNG" width="70%"><br>可以理解为：Irradiance per solid angel某个面接受的能量往其他方向进行辐射；Intensity per projected unit area从某个方向到达这个面上的能量</li>
 </ul>
-</li>
-<li>最后的结果为：M<sub>persp</sub>=M<sub>ortho</sub>M<sub>persp-&gt;ortho</sub></li>
-</ul>
-<h2 id="assignment1结果">assignment1结果</h2>
-<p><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%876.png" alt=""></p>
+<p>BRDF可以理解为从某个方向进入反射到某个方向会分布多少能量，也就是一个表面如何把收集到的能量反射到一个方向上去
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/7.PNG" width="70%">
+对上式做积分，得到来自四面八方入射光最后反射到某个方向的光<br>渲染方程：BRDF算得反射后的光加上物体自己发出的光 <br>对于所有场景，经过简化之后的渲染方程
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture13/8.PNG" width="70%">
+光栅化只有图中光源自身发光和直接光照</p>
 
       
     </div>
@@ -433,15 +445,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2021/03/23/lecture10/" rel="next" title="Lecture10">
+                <i class="fa fa-chevron-left"></i> Lecture10
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/03/02/raytracing_in_oneweekend%E7%AC%94%E8%AE%B0/" rel="prev" title="Ray Tracing笔记">
-                Ray Tracing笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -573,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5"><span class="nav-number">1.</span> <span class="nav-text">变换矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E5%8F%98%E6%8D%A2-View-Camera-transformation"><span class="nav-number">2.</span> <span class="nav-text">视图变换 View&#x2F;Camera transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2-Projection-transformation"><span class="nav-number">3.</span> <span class="nav-text">投影变换 Projection transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#assignment1%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">assignment1结果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Ray-Tracing"><span class="nav-number">1.</span> <span class="nav-text">Basic Ray Tracing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Whitted-Style-Ray-Tracing"><span class="nav-number">1.1.</span> <span class="nav-text">Whitted-Style Ray Tracing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ray-Surface-Intersection"><span class="nav-number">1.2.</span> <span class="nav-text">Ray-Surface Intersection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%85%89%E7%BA%BF%E5%92%8C%E5%9C%BA%E6%99%AF%E6%B1%82%E4%BA%A4"><span class="nav-number">1.2.1.</span> <span class="nav-text">优化光线和场景求交</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%89%E7%BA%BF%E4%BC%A0%E6%92%AD"><span class="nav-number">1.3.</span> <span class="nav-text">光线传播</span></a></li></ol></li></ol></div>
             
 
           </div>

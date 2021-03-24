@@ -79,27 +79,27 @@
 
 
 
-<meta name="description" content="纺射变换和投影变换">
+<meta name="description" content="使用重心坐标插值属性">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture4-变换矩阵">
-<meta property="og:url" content="http://example.com/2021/03/01/lecture4/index.html">
+<meta property="og:title" content="Lecture8 &amp; 9 重心坐标插值">
+<meta property="og:url" content="http://example.com/2021/03/22/lecture8&9/index.html">
 <meta property="og:site_name" content="Delafin&#39;s">
-<meta property="og:description" content="纺射变换和投影变换">
+<meta property="og:description" content="使用重心坐标插值属性">
 <meta property="og:locale">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片1.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片2.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%873.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%874.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片5.png">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%876.png">
-<meta property="article:published_time" content="2021-03-01T01:29:16.000Z">
-<meta property="article:modified_time" content="2021-03-02T04:50:42.527Z">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片1.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片2.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片3.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片4.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片5.png">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片6.png">
+<meta property="article:published_time" content="2021-03-22T02:49:53.000Z">
+<meta property="article:modified_time" content="2021-03-24T03:47:14.631Z">
 <meta property="article:author" content="Delafin">
 <meta property="article:tag" content="图形学">
 <meta property="article:tag" content="GAMES101">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png">
+<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片.png">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/03/01/lecture4/"/>
+  <link rel="canonical" href="http://example.com/2021/03/22/lecture8&9/"/>
 
 
 
 
 
-  <title>Lecture4-变换矩阵 | Delafin's</title>
+  <title>Lecture8 & 9 重心坐标插值 | Delafin's</title>
   
 
 
@@ -266,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/01/lecture4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/22/lecture8&9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lecture4-变换矩阵</h1>
+          <h1 class="post-title" itemprop="name headline">Lecture8 & 9 重心坐标插值</h1>
         
 
         <div class="post-meta">
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-01T09:29:16+08:00">
-                2021-03-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-22T10:49:53+08:00">
+                2021-03-22
               </time>
             
 
@@ -355,52 +355,34 @@
       
 
       
-        <p>纺射变换和投影变换</p>
+        <p>使用重心坐标插值属性</p>
 <span id="more"></span>
-<h2 id="变换矩阵">变换矩阵</h2>
-<figure class="half" float="right">
-    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片.png" width="230">
-    <img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片1.png" width="230">
-</figure>
-而对于任意绕轴的旋转，当成是旋转的组合（罗德里格斯旋转公式）
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片2.png">
-后面的N为叉乘的矩阵形式
-如果是不过原点的某个轴，则先将轴移动到原点做旋转再移动回原来的位置
-<h2 id="视图变换-View-Camera-transformation">视图变换 View/Camera transformation</h2>
-<p>因为移动模型和移动相机可能得到一模一样的结果，所以假定相机位置固定，只移动物体位置（model transformation）</p>
+<h2 id="使用重心坐标插值">使用重心坐标插值</h2>
+<p>Barycentric Coordinates重心坐标
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片.png" width="80%">
+三角形内任意一点都可以用三个顶点的线性组合来表示，只要系数和等于1且大于0（三角形平面上的任意一点不需要大于0），用系数作为坐标来表示点(x, y)<br>求三角形内任意一点的坐标，使用三角形面积
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片1.png" width="80%">
+<font color=Red>三角形的重心即为系数都为1/3的点</font>
+更为简化的计算坐标方法
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片2.png" width="80%">
+通过重心坐标插值，就是属性的线性组合
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片3.png" width="80%">
+但重心坐标在投影变换下，是不能保证不变的，所以应该使用三维空间中的点进行重心坐标插值，而不应该在投影之后进行插值<br>对于每一个像素坐标点，可以在纹理上查询其uv坐标，再通过uv坐标在纹理上进行采样，得到具体的颜色对像素赋值</p>
+<h3 id="纹理过小">纹理过小</h3>
+<p>如果纹理太小，就需要放大（分辨率低）<br>texel（纹理像素），纹理太小则多个像素可能被映射到同一个纹理像素<br>使用双线性插值
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片4.png" width="80%">
+相当于横着插一遍值，得到的结果竖着插一遍值（先竖直再水平也是可以的）</p>
+<h3 id="纹理过大">纹理过大</h3>
+<p>纹理太大会产生走样现象，近处一个像素覆盖的纹理像素较少，远处一个像素覆盖的纹理像素较多<br>解决方法：</p>
 <ul>
-<li>摆放模型的位置（model transformation）</li>
-<li>找一个角度“拍照”(view transformation)
-<ul>
-<li>对于相机的定义：Position, Look-at, Up direction（相机位置，往哪里看，向上方向（要两个方向才能定义一个坐标系））</li>
-<li>相机永远在原点，看向-Z，向上为+Y<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%873.png" alt=""></li>
-<li>注意这里是平移矩阵在右边，表示先算</li>
+<li>超采样：一个像素点多次采样取平均值，但开销太大</li>
+<li>Mipmap：允许范围查询（快，近似，只能做正方形查询）
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片5.png" width="80%">
+存储量多1/3<br>通过计算一个像素和其临近像素距离的微分来近似计算其映射在纹理上纹理像素可能的大小，D=log<sub>2</sub>L，其中D为Mipmap层数，L为映射在纹理上的像素大小（方形区域的边长）</li>
 </ul>
-</li>
-<li>要对其他物体做同样的变换，是为了保证相机和物体相对位置不变</li>
-</ul>
-<h2 id="投影变换-Projection-transformation">投影变换 Projection transformation</h2>
-<p>透视投影固定物体位置，相机位置无限远，最后得到的结果就近似于正交投影</p>
-<ul>
-<li>Orthographic projection
-<ul>
-<li>移动到立方体中，再映射到标准立方体中（先把立方体中心移动到原点，再把立方体xyz轴拉成标准（缩放））</li>
-<li>在z轴上定义[f, n]，其中f的z值更小，n更大（看向-Z方向）</li>
-<li><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%874.png" alt=""></li>
-<li>做完了投影变换后，物体会被拉伸</li>
-</ul>
-</li>
-<li>Perspective projection
-<ul>
-<li>（x,y,z,1）和（kx,ky,kz,k!=0）以及（xz,yz,z^2,z!=0）都表示同一个点</li>
-<li>一种思路，把空间中的视锥体挤成和近平面相同的长方体，再进行正交投影，规定近平面永远不变（也只有近平面上的点不会改变），远平面上的点的z值也不会发生改变，通过相似三角形确定“挤压”后的x,y位置<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/未命名图片5.png" width="70%">
-中间一行为（0，0，n+f，-nf）</li>
-</ul>
-</li>
-<li>最后的结果为：M<sub>persp</sub>=M<sub>ortho</sub>M<sub>persp-&gt;ortho</sub></li>
-</ul>
-<h2 id="assignment1结果">assignment1结果</h2>
-<p><img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture4/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%876.png" alt=""></p>
+<p><font color=Red>作业结果：</font>
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture8&9/未命名图片6.png" width="100%">
+刚开始不能理解h, u, v, w的意思，直到看了别人的代码，h是norm()函数，uv分别指纹理坐标wh指纹理长宽，相当于在uv方向上做微分</p>
 
       
     </div>
@@ -433,14 +415,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2021/03/09/webpack/" rel="next" title="Webpack配置和使用">
+                <i class="fa fa-chevron-left"></i> Webpack配置和使用
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/02/raytracing_in_oneweekend%E7%AC%94%E8%AE%B0/" rel="prev" title="Ray Tracing笔记">
-                Ray Tracing笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/23/lecture10/" rel="prev" title="Lecture10">
+                Lecture10 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -573,7 +559,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5"><span class="nav-number">1.</span> <span class="nav-text">变换矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E5%8F%98%E6%8D%A2-View-Camera-transformation"><span class="nav-number">2.</span> <span class="nav-text">视图变换 View&#x2F;Camera transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2-Projection-transformation"><span class="nav-number">3.</span> <span class="nav-text">投影变换 Projection transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#assignment1%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">assignment1结果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%87%8D%E5%BF%83%E5%9D%90%E6%A0%87%E6%8F%92%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">使用重心坐标插值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%B9%E7%90%86%E8%BF%87%E5%B0%8F"><span class="nav-number">1.1.</span> <span class="nav-text">纹理过小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%B9%E7%90%86%E8%BF%87%E5%A4%A7"><span class="nav-number">1.2.</span> <span class="nav-text">纹理过大</span></a></li></ol></li></ol></div>
             
 
           </div>
