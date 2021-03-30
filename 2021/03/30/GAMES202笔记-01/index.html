@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="图形学,GAMES101," />
+  <meta name="keywords" content="图形学,GAMES202," />
 
 
 
@@ -79,24 +79,25 @@
 
 
 
-<meta name="description" content="贴图和曲线简介">
+<meta name="description" content="基础复习和软阴影实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture10">
-<meta property="og:url" content="http://example.com/2021/03/23/lecture10/index.html">
+<meta property="og:title" content="GAMES202笔记01">
+<meta property="og:url" content="http://example.com/2021/03/30/GAMES202%E7%AC%94%E8%AE%B0-01/index.html">
 <meta property="og:site_name" content="Delafin&#39;s">
-<meta property="og:description" content="贴图和曲线简介">
+<meta property="og:description" content="基础复习和软阴影实现">
 <meta property="og:locale">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/1.PNG">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/2.PNG">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/3.PNG">
-<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/lec11.PNG">
-<meta property="article:published_time" content="2021-03-23T07:01:20.000Z">
-<meta property="article:modified_time" content="2021-03-23T07:03:04.638Z">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/1.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/3.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/4.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/5.PNG">
+<meta property="og:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/6.PNG">
+<meta property="article:published_time" content="2021-03-30T07:12:46.000Z">
+<meta property="article:modified_time" content="2021-03-30T07:14:57.844Z">
 <meta property="article:author" content="Delafin">
 <meta property="article:tag" content="图形学">
-<meta property="article:tag" content="GAMES101">
+<meta property="article:tag" content="GAMES202">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/1.PNG">
+<meta name="twitter:image" content="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/1.PNG">
 
 
 
@@ -126,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/03/23/lecture10/"/>
+  <link rel="canonical" href="http://example.com/2021/03/30/GAMES202笔记-01/"/>
 
 
 
 
 
-  <title>Lecture10 | Delafin's</title>
+  <title>GAMES202笔记01 | Delafin's</title>
   
 
 
@@ -263,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/23/lecture10/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/GAMES202%E7%AC%94%E8%AE%B0-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -280,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lecture10</h1>
+          <h1 class="post-title" itemprop="name headline">GAMES202笔记01</h1>
         
 
         <div class="post-meta">
@@ -292,8 +293,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-23T15:01:20+08:00">
-                2021-03-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-30T15:12:46+08:00">
+                2021-03-30
               </time>
             
 
@@ -352,59 +353,46 @@
       
 
       
-        <p>贴图和曲线简介</p>
+        <p>基础复习和软阴影实现</p>
 <span id="more"></span>
-<h3 id="环境贴图">环境贴图</h3>
-<p>假设环境光来自无线远处，只记录方向信息而没有深度意义<br>可以将环境光记录在球体上并展开成一张贴图</p>
-<blockquote>
-<p>为了解决展开的扭曲问题，使用一个立方体包围球体，将纹理展开成立方体的六个面（将光照信息存在立方体的表面上，球面上的点连接圆心连线打到立方体的表面上）</p>
-</blockquote>
-<h3 id="凹凸贴图">凹凸贴图</h3>
-<p>定义纹理上任意一个点的相对高度信息，通过相对高度信息对于任意一个点都能求出新的法线信息
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/1.PNG" width="80%">
-在水平面上的情况，通过求扰动后点的切线求该点法线
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/2.PNG" width="80%">
-3维情况
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/3.PNG" width="80%">
-<font color=Red>这里定义的是局部坐标系的局部法线</font>
-而位移贴图实际会改变顶点的位置</p>
-<h2 id="几何">几何</h2>
+<h2 id="基础复习">基础复习</h2>
+<h3 id="渲染管线">渲染管线</h3>
+<p>Vertex Processing （MVP）-&gt; Triangle Processing -&gt; Rasterization（离散化） -&gt; Fragment Processing（着色） -&gt; Framebubffer Operation</p>
+<h3 id="OpenGL">OpenGL</h3>
+<p>写在CPU端来调用GPU</p>
 <ul>
-<li>隐式几何：告知点之间的关系（函数，难以直观想象几何长什么样，但是方便计算和判断某个点和其相对位置，容易求交）<br>Constructive Solid Geometry通过基本几何体之间的代数运算<br>距离函数：描述任何一个点到表面上的点的最近距离，所以空间中任何一个点都可以被定义一个值，而值等于0的点就是距离函数表示下的物体表面<font color=Red>图片4</font>对A和B定义的不同值直接相加</li>
-<li>显式几何：三角形面表示，参数映射通过一个函数将(u,v)-&gt;(x,y,z)</li>
+<li>确定模型和模型位置（Vertex buffer object存储模型）</li>
+<li>视图变换；创建framebuffer</li>
+<li>输出纹理（同一个framebuffer可以定义输出，渲染很多纹理例如着色结果和深度图）</li>
+<li>顶点片段着色（对顶点做MVP变换和一些插值并输出到片段着色器；对片段做着色）attribute关键字指定vertex shader中的属性，varying指定要变换（被插值）的属性，uniform定义全局变量</li>
+<li>多次渲染（比如Shadow Mapping）</li>
 </ul>
-<h3 id="曲线">曲线</h3>
-<h4 id="Explicit-Representation">Explicit Representation</h4>
+<p>Debug：Nsight Graphics；RenderDoc；将想要打印的值按颜色输出</p>
+<h2 id="实时软阴影">实时软阴影</h2>
+<p>作业1实现PCSS(Percentage Closer Soft Shadow)</p>
+<h3 id="Shadow-Mapping">Shadow Mapping</h3>
+<p>两个pass，第一个pass从光源出发渲染光源方向能看到的物体的最近深度（每个像素记录光能看到的物体的深度），第二个pass从相机出发根据前一个pass输出的结果(Shadow map)检查某个点是否在光可见范围内（如果深度比Shadow map中记录的深则在阴影中，会出现自遮挡和走样现象）<br>这里比较的深度要么都是经过MVP变换之后的z值（MVP变换会使z值发生改变），要么是真正空间上的距离<br>假设像素内的深度是一个常数值，在记录深度时相当于离散化了真正的场景，相机看到的位置在Shadow map上的深度可能和实际出现偏差（自遮挡现象，光垂直于平面时效果最好）
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/1.PNG" >
+给定一个容忍区间(bias)，这个长度可以根据光和平面角度相关（但可能造成阴影的丢失）</p>
+<h4 id="Second-depth-shadow-mapping">Second-depth shadow mapping</h4>
+<p>Shadow map不仅存最小深度，还要存次小深度，使用次小深度和最小深度之间进行比较（这种方法有非常多的限制：对模型有一定要求）</p>
+<h3 id="从微积分开始">从微积分开始</h3>
+<p>一个重要的近似相等，近似认为两个函数乘积的积分等于积分的乘积（除以下面那个积分相当于在做归一化）
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/3.PNG" >
+比较准确的条件：</p>
 <ul>
-<li>Point Cloud: List of points(x,y,z)</li>
-<li>Polygon Mesh: Store vertices and polygons(.obj是一个文本文件，分开表示顶点，法线和纹理坐标，f表示哪些点构成面以及面的信息)</li>
+<li>积分限小（对于点和方向光）</li>
+<li>函数g(x)变化在积分限内变化幅度小（光滑）（面光源和diffuse的shading point）</li>
 </ul>
-<h4 id="贝塞尔曲线">贝塞尔曲线</h4>
-<p>de Casteljau Algorithm
-二次贝塞尔曲线：三个控制点
-画曲线就是找在时间t的点的位置
-<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/lecture10/lec11.PNG" width="80%">
-$$
-b<sup>1_0(t)=(1-t)b_0+tb_1\b</sup>1_1(t)=(1-t)b_1+tb_2\b<sup>2_0(t)=(1-t)b</sup>1_0+tb<sup>1_1\b</sup>2_0(t)=(1-t)<sup>2b_0+2t(1-t)b_1+t</sup>2b_2
-$$
-<strong>系数为二项展开</strong>
-$$
-b<sup>n(t)=\sum_{j=0}</sup>{n}{b_jB_j^n(t)}
-$$
-性质：一定过起始点和终点，并在这两点切线等于和下一点的连线
-<strong>只用对控制点做纺射变换</strong>
-曲线在控制点形成的凸包内</p>
-<h4 id="逐段贝塞尔曲线">逐段贝塞尔曲线</h4>
-<p>控制点太多不好控制（一般4个控制点）
-几何上的连续：
-C<sup>0</sup>连续：终点连起点
-C<sup>1</sup>连续：切线大小相等方向相反</p>
-<h4 id="Spline-样条">Spline 样条</h4>
-<p>满足一定的连续性，也有控制点控制（一个可空的曲线）
-B-splines：奇函数样条，用伯恩斯坦多项式对控制点位置加权，具有局部性</p>
-<h3 id="Surfaces">Surfaces</h3>
-<h4 id="贝塞尔曲面">贝塞尔曲面</h4>
-<p>4*4个控制点，在两个方向上分别应用贝塞尔曲线，四条线分别做贝塞尔曲线，然后将四个点当成另外一个方向上的控制点</p>
+<p>代入带有visibility的渲染方程：
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/4.PNG" >
+下式左边为visibility，右边为不带visibility的shading</p>
+<h3 id="PCSS">PCSS</h3>
+<p>PCF(Percentage Closer Filtering)：在阴影判断时进行filtering（不是对最后结果或者Shadow map进行filter），应用于阴影抗锯齿
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/5.PNG" >
+和shadow map进行比较时不只找某个点记录的深度而要和周围的深度进行比较，之后进行平均（filter大小决定了是硬还是软）<br>也不一定对全部阴影进行相同的filter，可以在不同位置指定不同大小（同时具有软和硬阴影）<br>设置filter size和<font color=Blue>遮挡物到阴影的接受物之间的距离有关</font>
+<img src="http://delafins.oss-cn-beijing.aliyuncs.com/images_graphics/GAMES202/lecture1-2/6.PNG" >
+图中w一定程度上表示阴影软的程度<br>PCSS就是PCF先计算出各处Filter大小（根据一个区域中的平均Blocker depth，要不然取一个固定值）</p>
 
       
     </div>
@@ -424,7 +412,7 @@ B-splines：奇函数样条，用伯恩斯坦多项式对控制点位置加权�
           
             <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 图形学</a>
           
-            <a href="/tags/GAMES101/" rel="tag"># GAMES101</a>
+            <a href="/tags/GAMES202/" rel="tag"># GAMES202</a>
           
         </div>
       
@@ -437,8 +425,8 @@ B-splines：奇函数样条，用伯恩斯坦多项式对控制点位置加权�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/22/lecture8&9/" rel="next" title="Lecture8 & 9 重心坐标插值">
-                <i class="fa fa-chevron-left"></i> Lecture8 & 9 重心坐标插值
+              <a href="/2021/03/24/lecture13-16/" rel="next" title="Lecture13-16 光线追踪">
+                <i class="fa fa-chevron-left"></i> Lecture13-16 光线追踪
               </a>
             
           </div>
@@ -446,10 +434,6 @@ B-splines：奇函数样条，用伯恩斯坦多项式对控制点位置加权�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/03/24/lecture13-16/" rel="prev" title="Lecture13-16 光线追踪">
-                Lecture13-16 光线追踪 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -581,7 +565,7 @@ B-splines：奇函数样条，用伯恩斯坦多项式对控制点位置加权�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E8%B4%B4%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">环境贴图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%B9%E5%87%B8%E8%B4%B4%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">凹凸贴图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%BD%95"><span class="nav-number"></span> <span class="nav-text">几何</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B2%E7%BA%BF"><span class="nav-number">1.</span> <span class="nav-text">曲线</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Explicit-Representation"><span class="nav-number">1.1.</span> <span class="nav-text">Explicit Representation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF"><span class="nav-number">1.2.</span> <span class="nav-text">贝塞尔曲线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%90%E6%AE%B5%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF"><span class="nav-number">1.3.</span> <span class="nav-text">逐段贝塞尔曲线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spline-%E6%A0%B7%E6%9D%A1"><span class="nav-number">1.4.</span> <span class="nav-text">Spline 样条</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Surfaces"><span class="nav-number">2.</span> <span class="nav-text">Surfaces</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E9%9D%A2"><span class="nav-number">2.1.</span> <span class="nav-text">贝塞尔曲面</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">基础复习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF"><span class="nav-number">1.1.</span> <span class="nav-text">渲染管线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenGL"><span class="nav-number">1.2.</span> <span class="nav-text">OpenGL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E8%BD%AF%E9%98%B4%E5%BD%B1"><span class="nav-number">2.</span> <span class="nav-text">实时软阴影</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shadow-Mapping"><span class="nav-number">2.1.</span> <span class="nav-text">Shadow Mapping</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Second-depth-shadow-mapping"><span class="nav-number">2.1.1.</span> <span class="nav-text">Second-depth shadow mapping</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E5%BE%AE%E7%A7%AF%E5%88%86%E5%BC%80%E5%A7%8B"><span class="nav-number">2.2.</span> <span class="nav-text">从微积分开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCSS"><span class="nav-number">2.3.</span> <span class="nav-text">PCSS</span></a></li></ol></li></ol></div>
             
 
           </div>
